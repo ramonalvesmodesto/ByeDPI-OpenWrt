@@ -27,7 +27,7 @@ jobs:
         run: |
           TAG=$(wget -qO- --header="Authorization: token $GH_TOKEN" "https://api.github.com/repos/$REPO/releases/latest" | grep -Po '"tag_name": "\K.+?(?=")')
           echo "Latest upstream tag: $TAG"
-          TAG=openwrt-25.12
+          TAG=25.12.0-rc3
           
           if [ -f .last_release_tag ]; then
             LAST=$(cat .last_release_tag)
@@ -52,7 +52,7 @@ jobs:
       fail-fast: false
       matrix:
         branch:
-          - openwrt-25.12
+          - 25.12.0-rc3
         arch:
           - aarch64_cortex-a53
         exclude:
@@ -67,7 +67,7 @@ jobs:
           - branch: openwrt-24.10
             arch: arm_mpcore
         include:
-          - branch: openwrt-25.12
+          - branch: 25.12.0-rc3
             arch: aarch64_cortex-a53
     container:
       image: openwrt/sdk:${{ matrix.arch }}-${{ matrix.branch }}
@@ -80,7 +80,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup SDK
-        if: ${{ matrix.branch == 'openwrt-25.12' || matrix.branch == 'SNAPSHOT' }}
+        if: ${{ matrix.branch == '25.12.0-rc3' || matrix.branch == 'SNAPSHOT' }}
         working-directory: /builder
         run: HOME=/builder ./setup.sh
 
@@ -91,7 +91,7 @@ jobs:
 
       - name: Compile package
         id: compile
-        working-directory: ${{ matrix.branch == 'openwrt-25.12' && '/home/build/openwrt' || '/builder' }}
+        working-directory: ${{ matrix.branch == '25.12.0-rc3' && '/home/build/openwrt' || '/builder' }}
         env:
           ARCH: ${{ matrix.arch }}
           BRANCH: ${{ matrix.branch }}
@@ -111,7 +111,7 @@ jobs:
         env:
           ARCH: ${{ matrix.arch }}
           BRANCH: ${{ matrix.branch }}
-          LOGS_DIR: ${{ matrix.branch == 'openwrt-25.12' && '/home/build/openwrt/logs' || '/builder/logs' }}
+          LOGS_DIR: ${{ matrix.branch == '25.12.0-rc3' && '/home/build/openwrt/logs' || '/builder/logs' }}
         run: |
           if [ -d "$LOGS_DIR" ]; then
             tar -cJvf logs-$BRANCH-$ARCH.tar.xz "$LOGS_DIR"
