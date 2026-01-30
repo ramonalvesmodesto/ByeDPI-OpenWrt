@@ -27,7 +27,8 @@ jobs:
         run: |
           TAG=$(wget -qO- --header="Authorization: token $GH_TOKEN" "https://api.github.com/repos/$REPO/releases/latest" | grep -Po '"tag_name": "\K.+?(?=")')
           echo "Latest upstream tag: $TAG"
-
+          TAG=openwrt-25.12
+          
           if [ -f .last_release_tag ]; then
             LAST=$(cat .last_release_tag)
           else
