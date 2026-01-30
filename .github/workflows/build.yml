@@ -52,39 +52,9 @@ jobs:
       fail-fast: false
       matrix:
         branch:
-          - openwrt-19.07
-          - openwrt-21.02
-          - openwrt-22.03
-          - openwrt-23.05
-          - openwrt-24.10
           - openwrt-25.12
         arch:
           - aarch64_cortex-a53
-          - aarch64_cortex-a72
-          - aarch64_generic
-          - arm_arm1176jzf-s_vfp
-          - arm_arm926ej-s
-          - arm_cortex-a15_neon-vfpv4
-          - arm_cortex-a5_vfpv4
-          - arm_cortex-a7
-          - arm_cortex-a7_neon-vfpv4
-          - arm_cortex-a7_vfpv4
-          - arm_cortex-a8_vfpv3
-          - arm_cortex-a9
-          - arm_cortex-a9_neon
-          - arm_cortex-a9_vfpv3-d16
-          - arm_fa526
-          - arm_mpcore
-          - arm_xscale
-          - mips64_octeonplus
-          - mips_24kc
-          - mips_4kec
-          - mips_mips32
-          - mipsel_24kc
-          - mipsel_24kc_24kf
-          - mipsel_74kc
-          - mipsel_mips32
-          - x86_64
         exclude:
           - branch: openwrt-19.07
             arch: arm_cortex-a7
@@ -220,11 +190,6 @@ jobs:
       max-parallel: 1
       matrix:
         branch:
-          - '19.07'
-          - '21.02'
-          - '22.03'
-          - '23.05'
-          - '24.10'
           - '25.12'
     steps:
       - name: Download artifacts
