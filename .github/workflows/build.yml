@@ -97,8 +97,8 @@ jobs:
           BRANCH: ${{ matrix.branch }}
           SIGN_KEY: ${{ secrets.SIGN_PRIVATE_KEY }}
         run: |
-          echo  $GITHUB_WORKSPACE
           echo "src-link byedpi $GITHUB_WORKSPACE" >> feeds.conf
+          echo  $GITHUB_WORKSPACE
           ./scripts/feeds update byedpi
           ./scripts/feeds install -a -p byedpi
           make defconfig
